@@ -20,8 +20,9 @@ export class HttpService {
     this.catchEmAll();
   }
   catchEmAll()  {
-    const blastoiseObservable = this._http.get('https://pokeapi.co/api/v2/pokemon/9/');
-    blastoiseObservable.subscribe(this.blastoiseStatsData);
+    return this._http.get('https://pokeapi.co/api/v2/pokemon/9/');
+    // const blastoiseObservable = this._http.get('https://pokeapi.co/api/v2/pokemon/9/');
+    // blastoiseObservable.subscribe(this.blastoiseStatsData);
   }
 
   blastoiseStatsData = (data: PokemonData) => {
@@ -30,17 +31,20 @@ export class HttpService {
       stats += `${data.stats[i].stat.name} : ${data.stats[i].stat.base_stat}`;
       console.log(stats);
     }
+    console.log(stats);
     for (let i = 0; i < data.stats.length; i++) {
-      const statObservable = this._http.get(`https://pokeapi.co/api/v2/stat/${data.stats[i].stat.name}`);
-      statObservable.subscribe(this.statData);
+      return this._http.get(`https://pokeapi.co/api/v2/stat/${data.stats[i].stat.name}`);
+      // const statObservable = this._http.get(`https://pokeapi.co/api/v2/stat/${data.stats[i].stat.name}`);
+      // statObservable.subscribe(this.statData);
     }
   }
 
   statData = (data: PokeStatData) => {
   let others = `Here are some pokemon with ${data.stat.name} ${data.stat.base_stat}:`;
-  for (let i = 0; i < data.pokemon.length; i++) {
+  for (let i = 0; i < data.stat.length; i++) {
     others += `${data.pokemon[i].pokemon.name}`;
     console.log(others);
     }
+    console.log(others);
   }
 }

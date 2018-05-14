@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
 
 @Component({
@@ -9,5 +9,17 @@ import { HttpService } from './http.service';
 
 export class AppComponent {
   title = 'app';
+  pokemon = [];
   constructor(private _httpService: HttpService) { }
-}
+  ngOnInit() {
+    this.getPokemonData();
+  }
+    getPokemonData() {
+      const observable = this._httpService.catchEmAll();
+      observable.subscribe(data => {
+        console.log('pokemon data is here', data);
+        this.pokemon = data ['pokemon'];
+      });
+    }
+  }
+
